@@ -1,0 +1,14 @@
+{
+  "name": "course-alloter",
+  "version": "1.0.0",
+  "description": "simple algo to allot PEC based on CGPA and preferences",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Smith Pereira",
+  "license": "ISC",
+  "dependencies": {
+  }
+}

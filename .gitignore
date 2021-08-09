@@ -102,3 +102,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+.DS_Store
+data.json
+package-lock.json
+ECE\ PEC\ Allotment\ Courses.json
+ECE\ PEC\ Allotment\ Students.json
