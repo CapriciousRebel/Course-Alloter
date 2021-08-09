@@ -1,5 +1,6 @@
 {
   "name": "course-alloter",
+  "type": "module",
   "version": "1.0.0",
   "description": "simple algo to allot PEC based on CGPA and preferences",
   "main": "index.js",
