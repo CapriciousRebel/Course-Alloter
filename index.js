@@ -6,32 +6,22 @@ let data = JSON.parse(fs.readFileSync('./data.json'));
 let courses = {
     1: {
         Name: "ECN-358: Machine Learning in Semiconductor Manufacturing",
-        Seats: 25,
+        Seats: 35,
         AllotedTo: []
     },
     2: {
         Name: "ECN-359: Compound Semiconductor Devices and Circuits",
-        Seats: 25,
+        Seats: 35,
         AllotedTo: []
     },
     3: {
         Name: "ECN-316  Digital Image Processing",
-        Seats: 25,
+        Seats: 45,
         AllotedTo: []
     },
     4: {
         Name: "CSN-341: Computer Networks",
         Seats: 20,
-        AllotedTo: []
-    },
-    5: {
-        Name: "CSN-521: Mobile and Pervasive computing",
-        Seats: 25,
-        AllotedTo: []
-    },
-    6: {
-        Name: "CSN-510: Network Programming",
-        Seats: 5,
         AllotedTo: []
     },
 }
@@ -41,12 +31,14 @@ let allotStudents = []
 const sortByCGPA = (arr) => {
     return arr.sort((a, b) => {
 
-        var x = a['CGPA(Fill upto 3 decimal places as given in acads portal)'];
-        var y = b['CGPA(Fill upto 3 decimal places as given in acads portal)'];
+        var x = a['CGPA'];
+        var y = b['CGPA'];
 
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
 
     }).reverse();
+
+
 }
 
 const allotCourses = (students) => {
@@ -54,7 +46,7 @@ const allotCourses = (students) => {
     for (let i = 0; i < students.length; i++) {
         let student = students[i];
 
-        let preferences = student['Preference order of electives'].split(' ').map((choice) => parseInt(choice, 10));
+        let preferences = student['Preference'].split(' ').map((choice) => parseInt(choice, 10));
 
         for (let i = 0; i < preferences.length; i++) {
             let currChoice = courses[preferences[i]];
@@ -62,8 +54,8 @@ const allotCourses = (students) => {
 
                 currChoice.AllotedTo.push({
                     Name: student['Name'],
-                    Enrollment: student['Enrollment Number'],
-                    CGPA: student['CGPA(Fill upto 3 decimal places as given in acads portal)'],
+                    Enrollment: student['Enrollment'],
+                    // CGPA: student['CGPA'],
                     preference: i + 1
                 });
                 break;
@@ -109,6 +101,9 @@ const generateStudentWise = () => {
 const main = async () => {
     console.log("> Sorting students by CGPA...")
     let students = sortByCGPA(data);
+    console.log(students.map((student, i) => {
+        return ({ Rank: i+1, Name: student.Name, CGPA: student.CGPA })
+    }))
     console.log("> Alloting Courses to students as per their CGPA and preference order...")
     allotCourses(students);
     console.log("> Generating the allotment list for each student...")
